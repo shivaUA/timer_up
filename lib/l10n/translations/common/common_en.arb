@@ -1,0 +1,160 @@
+{
+  "@@locale" : "en",
+
+  "common_language": "Language",
+  "common_create": "Create",
+  "common_refresh": "Refresh",
+  "common_edit": "Edit",
+  "common_delete": "Delete",
+  "common_email": "E-mail",
+  "common_emailValidation": "Enter a valid E-mail address",
+  "common_userName": "Username",
+  "common_ok": "OK",
+  "common_close": "Close",
+  "common_cancel": "Cancel",
+  "common_save": "Save",
+  "common_saveAndClose": "Save and close",
+  "common_active": "Active",
+  "common_name": "Name",
+  "common_sortOrder": "Sort order",
+  "common_modifiedAt": "Modified at",
+  "common_description": "Description",
+  "common_select": "Select",
+  "common_yes": "Yes",
+  "common_no": "No",
+  "common_title": "Title",
+  "common_picture": "Picture",
+  "common_detailsPicture": "Details picture",
+  "common_detailsPictures": "Details picture",
+  "common_text": "Text",
+  "common_date": "Date",
+  "common_import": "Import",
+  "common_key": "Key",
+  "common_keyValidation": "Specify a key",
+  "common_number": "Number",
+  "common_sortOrderValidation": "Please enter a number from -32768 to 32767",
+
+  "network_dioExceptions_cancel": "Request to the server was cancelled.",
+  "network_dioExceptions_connectionTimeout": "Connection timed out.",
+  "network_dioExceptions_receiveTimeout": "Receiving timeout occurred.",
+  "network_dioExceptions_sendTimeout": "Request send timeout.",
+  "network_dioExceptions_noInternet": "No Internet.",
+  "network_dioExceptions_unexpectedError": "Unexpected error occurred.",
+
+  "network_httpStatuses_400": "Provided request data is not correct.",
+  "network_httpStatuses_401": "Session expired, please login again.",
+  "network_httpStatuses_403": "The authenticated user is not allowed to access the specified API endpoint.",
+  "network_httpStatuses_404": "The requested resource does not exist.",
+  "network_httpStatuses_405": "Method not allowed. Please check the Allow header for the allowed HTTP methods.",
+  "network_httpStatuses_406": "Operation was denied. Please check the data and be sure you are attempting the right action.",
+  "network_httpStatuses_415": "Unsupported media type. The requested content type or version number is invalid.",
+  "network_httpStatuses_422": "Data validation failed.",
+  "network_httpStatuses_429": "Too many requests.",
+  "network_httpStatuses_500": "Internal server error.",
+  "network_httpStatuses_general": "Oops something went wrong!",
+
+  "textEditor_dialog_fullScreen": "Edit text",
+  "textEditor_dialog_code": "Edit markdown code",
+
+  "textEditor_toolbar_fullScreen": "Open full-screen editor",
+  "textEditor_toolbar_code": "Open code editor",
+
+  "editors_date_dialogTitle": "Select Date",
+  "editors_date_validation": "Select a valid date",
+  "editors_dateTime_dialogTitle": "Select Date & Time",
+  "editors_dateTime_validation": "Select a valid date and time",
+  "editors_time_hour": "Hour",
+  "editors_time_minute": "Minute",
+  "editors_time_second": "Second",
+  "editors_time_validation": "Value must be between \"{min}\" and \"{max}\"",
+  "@editors_time_validation": {
+    "description": "A message with two String parameters",
+    "placeholders": {
+      "min": {
+        "type": "String",
+        "example": "00:00:00"
+      },
+      "max": {
+        "type": "String",
+        "example": "23:59:59"
+      }
+    }
+  },
+  "editors_languageRows_validation": "Enter value for \"{languageName}\"",
+  "@editors_languageRows_validation": {
+    "description": "A message with one String parameter",
+    "placeholders": {
+      "languageName": {
+        "type": "String",
+        "example": "English"
+      }
+    }
+  },
+  "editors_languageTabs_validation": "Please enter \"{fieldName}\"",
+  "@editors_languageTabs_validation": {
+    "description": "A message with one String parameter",
+    "placeholders": {
+      "fieldName": {
+        "type": "String",
+        "example": "Name"
+      }
+    }
+  },
+
+  "import_inserted": "Inserted",
+  "import_updated": "Updated",
+  "import_deleted": "Deleted",
+
+  "routes_dashboard": "Dashboard",
+  "routes_login": "Login",
+  "routes_users": "Users",
+  "routes_roles": "Roles",
+  "routes_accessRules": "Access rules",
+  "routes_tags": "Tags",
+  "routes_resourceStrings": "Resource strings",
+  "routes_interests": "Interests",
+  "routes_languages": "Languages",
+  "routes_stems": "Stems",
+  "routes_dailyEnergy": "Daily energy",
+  "routes_products": "Products",
+  "routes_ecommerceStatistics": "Ecommerce statistics",
+  "routes_sections": "Sections",
+  "routes_categories": "Categories",
+  "routes_programs": "Programs",
+  "routes_doctors": "Doctors",
+  "routes_messageTemplates": "Message templates",
+  "routes_notificationMessages": "Notification messages",
+  "routes_moonPhases": "Moon phases",
+  "routes_zodiacSigns": "Zodiac signs",
+  "routes_actions": "Actions",
+  "routes_recommendations": "Recommendations",
+  "routes_daily_rituals": "Rituals",
+  "routes_daily_rituals_days": "Ritual days",
+  "routes_daily_rituals_categories": "Ritual categories",
+
+  "mainMenu_sections_programs": "Programs",
+  "mainMenu_sections_auth": "Auth",
+  "mainMenu_sections_bazi": "BaZi",
+  "mainMenu_sections_store": "Store",
+  "mainMenu_sections_messaging": "Messaging",
+  "mainMenu_sections_moonPhases": "Moon Phases",
+  "mainMenu_sections_system": "System",
+  "mainMenu_sections_daily": "Daily",
+
+  "autoTable_actionUnavailable": "This action is not available",
+  "autoTable_searchPlaceholder": "Type at least 3 characters to search...",
+  "autoTable_searchButton": "Tap to search",
+  "autoTable_searchCancelButton": "Tap to cancel current search",
+  "autoTable_noData": "No records found for current filters",
+  "autoTable_searchResultsFor": "Search results for request: \"{searchPhrase}\"",
+  "@autoTable_searchResultsFor": {
+    "description": "A message with a string parameter",
+    "placeholders": {
+      "searchPhrase": {
+        "type": "String",
+        "example": "test routine"
+      }
+    }
+  },
+  "autoTable_openMenu": "Open menu"
+}

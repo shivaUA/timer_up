@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dart-build-runner",
+      "type": "flutter",
+      "command": "dart",
+      "args": [
+        "run",
+        "build_runner",
+        "build"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "detail": ""
+    },
+    {
+      "label": "generate-translations",
+      "type": "shell",
+      "command": "dart",
+      "args": ["run", "lib/l10n/generate_localizations_script.dart"],
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}
