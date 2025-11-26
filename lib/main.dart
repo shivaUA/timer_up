@@ -1,122 +1,116 @@
+// Flutter & Dart
+import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+// Package & Window
+import 'package:window_size/window_size.dart';
+// Localization
+import 'package:flutter_localizations/flutter_localizations.dart';
+// TimerUp
+import 'package:timer_up/core/di/di.dart';
+import 'package:timer_up/core/routing/router_service.dart';
+import 'package:timer_up/l10n/generated/common/common_localizations.dart';
+import 'package:timer_up/l10n/generated/system/system_localizations.dart';
+import 'package:timer_up/themes/theme_type.dart';
+import 'package:timer_up/themes/themes.dart';
+import 'package:timer_up/core/models/app_locale.dart';
 
 void main() {
-  runApp(const MyApp());
-}
+  WidgetsFlutterBinding.ensureInitialized();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    //var packageInfo = await PackageInfo.fromPlatform();
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+    //setWindowTitle(packageInfo.appName);
+    setWindowMinSize(const Size(500, 300));
   }
+
+  // Register the DI modules
+  DI.init();
+
+  runApp(TimerUpApp(key: TimerUpApp._appKey));
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class TimerUpApp extends StatefulWidget {
+  static final GlobalKey<_TimerUpAppState> _appKey = GlobalKey<_TimerUpAppState>();
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+  const TimerUpApp({super.key});
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  static AppLocale get selectedLocale => _appKey.currentState!.selectedLocale;
 
-  final String title;
+  static set selectedLocale(AppLocale locale) {
+    _appKey.currentState!.setLocale(locale);
+  }
+
+  static List<AppLocale> get locales => _appKey.currentState!.locales;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<TimerUpApp> createState() => _TimerUpAppState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _TimerUpAppState extends State<TimerUpApp> {
+  final List<AppLocale> locales = const [
+    AppLocale("English", "en", "en-US"),
+    AppLocale("Deutsch", "de", "de-DE"),
+  ];
 
-  void _incrementCounter() {
+  static const String _defaultCultureCode = "EN-US";
+
+  late AppLocale selectedLocale;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // TODO: implement shared preferences and load previously selected culture
+    // var prefs = SharedPreferencesProvider.instance;
+    // var culture = prefs.getString("selCulture") ?? _defaultCultureCode;
+
+    // Locale from the device
+    final locale = PlatformDispatcher.instance.locale;
+
+    var culture = locale.countryCode?.toUpperCase() ?? _defaultCultureCode;
+
+    selectedLocale =
+        locales.where((e) => e.countryCode!.toUpperCase() == culture).firstOrNull ??
+        locales.where((e) => e.countryCode!.toUpperCase() == _defaultCultureCode).first;
+  }
+
+  Future<void> setLocale(AppLocale locale) async {
+    if (locale.countryCode == selectedLocale.countryCode ||
+        !locales.any((x) => x.countryCode == locale.countryCode)) {
+      return;
+    }
+
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      selectedLocale = locale;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    final rs = resolve<RouterService>();
+
+    var themeData = AppTheme.combine(ThemeType.dark);
+
+    return AppThemeContainer(
+      themeData: themeData,
+      child: MaterialApp.router(
+        routerConfig: rs.router,
+        supportedLocales: locales,
+        locale: selectedLocale,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          SystemLocalizations.delegate,
+          CommonLocalizations.delegate,
+        ],
+        scaffoldMessengerKey: rs.scaffoldKey,
+        theme: themeData.theme,
+        title: 'TimerUp',
+        debugShowCheckedModeBanner: false,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
