@@ -1,8 +1,12 @@
+// Flutter & Dart
 import 'dart:io';
-
+// Tray
 import 'package:nativeapi/nativeapi.dart';
+// i10n
 import 'package:timer_up/l10n/generated/system/system_localizations.dart';
-import 'package:timer_up/main.dart';
+import 'package:timer_up/l10n/localization_service.dart';
+// TimerUp
+import 'package:timer_up/core/di/di.dart';
 
 final class TrayService {
   bool _initialized = false;
@@ -15,11 +19,11 @@ final class TrayService {
       return;
     }
 
-    var sysLoc = SystemLocalizations.delegate.isSupported(TimerUpApp.selectedLocale)
-        ? await SystemLocalizations.delegate.load(TimerUpApp.selectedLocale)
-        : await SystemLocalizations.delegate.load(
-            TimerUpApp.locales.where((x) => x.isDefault).first,
-          );
+    var ls = resolve<LocalizationService>();
+
+    var sysLoc = SystemLocalizations.delegate.isSupported(ls.currentLocale)
+        ? await SystemLocalizations.delegate.load(ls.currentLocale)
+        : await SystemLocalizations.delegate.load(ls.locales.where((x) => x.isDefault).first);
 
     contextMenu = _prepareContextMenu(sysLoc);
     trayIcon = _prepareTrayIcon(sysLoc);
@@ -34,11 +38,11 @@ final class TrayService {
       return;
     }
 
-    var sysLoc = SystemLocalizations.delegate.isSupported(TimerUpApp.selectedLocale)
-        ? await SystemLocalizations.delegate.load(TimerUpApp.selectedLocale)
-        : await SystemLocalizations.delegate.load(
-            TimerUpApp.locales.where((x) => x.isDefault).first,
-          );
+    var ls = resolve<LocalizationService>();
+
+    var sysLoc = SystemLocalizations.delegate.isSupported(ls.currentLocale)
+        ? await SystemLocalizations.delegate.load(ls.currentLocale)
+        : await SystemLocalizations.delegate.load(ls.locales.where((x) => x.isDefault).first);
 
     _setTrayIconTranslations(sysLoc);
     _setContextMenuTranslations(sysLoc);
@@ -82,8 +86,10 @@ final class TrayService {
     // menu.addCallbackListener<MenuOpenedEvent>((event) {});
     // menu.addCallbackListener<MenuClosedEvent>((event) {});
 
+    var ls = resolve<LocalizationService>();
+
     // Add menu items
-    final showItem = MenuItem('Show Window ${TimerUpApp.selectedLocale.name}');
+    final showItem = MenuItem('Show Window ${ls.currentLocale.name}');
     final hideItem = MenuItem('Hide Window');
     final separatorItem = MenuItem('', MenuItemType.separator);
     final toggleItem = MenuItem('Toggle Visibility');

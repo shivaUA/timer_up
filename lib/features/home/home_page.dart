@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 // Bloc
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:timer_up/main.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -34,8 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
-
-    TimerUpApp.selectedLocale = TimerUpApp.locales.last;
   }
 
   @override
