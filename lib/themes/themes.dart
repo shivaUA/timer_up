@@ -11,17 +11,17 @@ class AppTheme {
   AppTheme(this.theme, this.colors);
 
   factory AppTheme.combine(ThemeType type) {
-    return type == ThemeType.dark ? AppTheme.dark() : AppTheme.light();
+    return type == ThemeType.dark ? AppTheme._dark() : AppTheme._light();
   }
 
-  factory AppTheme.dark() {
+  factory AppTheme._dark() {
     var colors = ColorsData.dark();
     var theme = _combineTheme(ThemeType.dark, colors);
 
     return AppTheme(theme, colors);
   }
 
-  factory AppTheme.light() => throw UnimplementedError();
+  factory AppTheme._light() => throw UnimplementedError();
 
   static AppTheme of(BuildContext context) => AppThemeContainer.of(context)!.themeData;
 
@@ -37,95 +37,100 @@ class AppTheme {
 
     return mainTheme.copyWith(
       textTheme: mainTheme.textTheme.copyWith(
+        // BODY
         bodySmall: mainTheme.textTheme.bodySmall?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.normal,
-          fontSize: 12,
+          fontSize: 15,
         ),
         bodyMedium: mainTheme.textTheme.bodyMedium?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.normal,
-          fontSize: 14,
+          fontSize: 18,
         ),
         bodyLarge: mainTheme.textTheme.bodyLarge?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.normal,
-          fontSize: 15.5,
+          fontSize: 21,
         ),
+        // DISPLAY
         displaySmall: mainTheme.textTheme.displaySmall?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.normal,
-          fontSize: 12,
+          fontSize: 36,
         ),
         displayMedium: mainTheme.textTheme.displayMedium?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.normal,
-          fontSize: 14,
+          fontSize: 45,
         ),
         displayLarge: mainTheme.textTheme.displayLarge?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.normal,
-          fontSize: 16,
+          fontSize: 57,
         ),
+        // HEADLINE
         headlineSmall: mainTheme.textTheme.headlineSmall?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.w700,
-          fontSize: 14,
+          fontSize: 24,
         ),
         headlineMedium: mainTheme.textTheme.headlineMedium?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.w700,
-          fontSize: 16.5,
+          fontSize: 28,
         ),
         headlineLarge: mainTheme.textTheme.headlineLarge?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.w700,
-          fontSize: 18,
+          fontSize: 32,
         ),
+        // LABEL
         labelSmall: mainTheme.textTheme.labelSmall?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.normal,
-          fontSize: 11.5,
+          fontSize: 11,
         ),
         labelMedium: mainTheme.textTheme.labelMedium?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.normal,
-          fontSize: 13.5,
+          fontSize: 12,
         ),
         labelLarge: mainTheme.textTheme.labelLarge?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.normal,
-          fontSize: 15.5,
+          fontSize: 14,
         ),
+        // TITLE
         titleSmall: mainTheme.textTheme.titleSmall?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.w500,
-          fontSize: 15,
+          fontSize: 14,
         ),
         titleMedium: mainTheme.textTheme.titleMedium?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.w500,
-          fontSize: 18,
+          fontSize: 16,
         ),
         titleLarge: mainTheme.textTheme.titleLarge?.copyWith(
           fontFamily: _fontFamily,
           color: colors.defaultTextColor,
           fontWeight: FontWeight.w500,
-          fontSize: 21,
+          fontSize: 22,
         ),
       ),
       scaffoldBackgroundColor: colors.scaffoldBackgroundColor,

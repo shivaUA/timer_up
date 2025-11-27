@@ -36,7 +36,7 @@ class ColorsData {
   Color successBorderColor;
   Color successBorderColorDarker;
 
-  ColorsData({
+  ColorsData._({
     required this.primaryColor,
     required this.scaffoldBackgroundColor,
     required this.canvasColor,
@@ -74,7 +74,7 @@ class ColorsData {
   });
 
   factory ColorsData.dark() {
-    return ColorsData(
+    return ColorsData._(
       primaryColor: const Color(0xFF2697FF),
       scaffoldBackgroundColor: const Color(0xFF212332),
       canvasColor: const Color(0xFF2A2D3E),

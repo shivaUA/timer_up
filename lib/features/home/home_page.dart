@@ -48,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -72,7 +71,25 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
+            Text('You ', style: Theme.of(context).textTheme.bodySmall),
+            Text('have ', style: Theme.of(context).textTheme.bodyMedium),
+            Text('pushed ', style: Theme.of(context).textTheme.bodyLarge),
+
+            Text('the ', style: Theme.of(context).textTheme.displaySmall),
+            Text('button ', style: Theme.of(context).textTheme.displayMedium),
+            Text('this ', style: Theme.of(context).textTheme.displayLarge),
+
+            Text('many ', style: Theme.of(context).textTheme.headlineSmall),
+            Text('crazy ', style: Theme.of(context).textTheme.headlineMedium),
+            Text('mega ', style: Theme.of(context).textTheme.headlineLarge),
+
+            Text('super ', style: Theme.of(context).textTheme.labelSmall),
+            Text('awesome ', style: Theme.of(context).textTheme.labelMedium),
+            Text('unbelievable ', style: Theme.of(context).textTheme.labelLarge),
+
+            Text('quite ', style: Theme.of(context).textTheme.titleSmall),
+            Text('pretty ', style: Theme.of(context).textTheme.titleMedium),
+            Text('times:', style: Theme.of(context).textTheme.titleLarge),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
