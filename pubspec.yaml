@@ -43,7 +43,6 @@ dependencies:
   window_size: ^0.1.0
   get_it: ^9.1.1
   flutter_bloc: ^9.1.1
-  #tray_manager: ^0.5.2
   nativeapi: ^0.1.0
 
 dev_dependencies:

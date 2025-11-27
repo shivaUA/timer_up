@@ -53,7 +53,9 @@ final class TrayService {
     try {
       var icon = TrayIcon();
 
-      final img = Image.fromAsset('resources/images/timer_up_logo.png');
+      final img = Image.fromAsset(
+        'resources/images/timer_up_logo.${Platform.isWindows ? "ico" : "png"}',
+      );
       if (img != null) {
         icon.icon = img;
       }
