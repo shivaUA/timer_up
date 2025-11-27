@@ -1,19 +1,17 @@
 // Flutter & Dart
 import 'dart:io';
 import 'dart:ui';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Image;
 // Package & Window
 import 'package:window_size/window_size.dart';
-// Localization
-import 'package:flutter_localizations/flutter_localizations.dart';
 // TimerUp
 import 'package:timer_up/core/di/di.dart';
 import 'package:timer_up/core/routing/router_service.dart';
-import 'package:timer_up/l10n/generated/common/common_localizations.dart';
-import 'package:timer_up/l10n/generated/system/system_localizations.dart';
 import 'package:timer_up/themes/theme_type.dart';
 import 'package:timer_up/themes/themes.dart';
 import 'package:timer_up/core/models/app_locale.dart';
+import 'package:timer_up/features/tray/tray_service.dart';
+import 'package:timer_up/l10n/language_utils.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,11 +48,9 @@ class TimerUpApp extends StatefulWidget {
 
 class _TimerUpAppState extends State<TimerUpApp> {
   final List<AppLocale> locales = const [
-    AppLocale("English", "en", "en-US"),
-    AppLocale("Deutsch", "de", "de-DE"),
+    AppLocale("English", true, "en", "en-US"),
+    AppLocale("Deutsch", false, "de", "de-DE"),
   ];
-
-  static const String _defaultCultureCode = "EN-US";
 
   late AppLocale selectedLocale;
 
@@ -69,11 +65,14 @@ class _TimerUpAppState extends State<TimerUpApp> {
     // Locale from the device
     final locale = PlatformDispatcher.instance.locale;
 
-    var culture = locale.countryCode?.toUpperCase() ?? _defaultCultureCode;
+    var defaultCultureCode = locales.where((x) => x.isDefault).first.countryCode!.toUpperCase();
+    var culture = locale.countryCode?.toUpperCase() ?? defaultCultureCode;
 
     selectedLocale =
         locales.where((e) => e.countryCode!.toUpperCase() == culture).firstOrNull ??
-        locales.where((e) => e.countryCode!.toUpperCase() == _defaultCultureCode).first;
+        locales.where((e) => e.countryCode!.toUpperCase() == defaultCultureCode).first;
+
+    resolve<TrayService>().init();
   }
 
   Future<void> setLocale(AppLocale locale) async {
@@ -85,6 +84,8 @@ class _TimerUpAppState extends State<TimerUpApp> {
     setState(() {
       selectedLocale = locale;
     });
+
+    resolve<TrayService>().updateTranslations();
   }
 
   @override
@@ -99,18 +100,19 @@ class _TimerUpAppState extends State<TimerUpApp> {
         routerConfig: rs.router,
         supportedLocales: locales,
         locale: selectedLocale,
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          SystemLocalizations.delegate,
-          CommonLocalizations.delegate,
-        ],
+        localizationsDelegates: [...LangUtils.localizationDelegates],
         scaffoldMessengerKey: rs.scaffoldKey,
         theme: themeData.theme,
         title: 'TimerUp',
         debugShowCheckedModeBanner: false,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    resolve<TrayService>().dispose();
+
+    super.dispose();
   }
 }
