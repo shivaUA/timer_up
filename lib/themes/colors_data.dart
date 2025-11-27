@@ -1,7 +1,12 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class ColorsData {
   Color primaryColor;
+  Color secondaryColor;
+  Color tertiaryColor;
+
   Color scaffoldBackgroundColor;
   Color canvasColor;
   Color appBarBackgroundColor;
@@ -38,6 +43,9 @@ class ColorsData {
 
   ColorsData._({
     required this.primaryColor,
+    required this.secondaryColor,
+    required this.tertiaryColor,
+
     required this.scaffoldBackgroundColor,
     required this.canvasColor,
     required this.appBarBackgroundColor,
@@ -76,6 +84,9 @@ class ColorsData {
   factory ColorsData.dark() {
     return ColorsData._(
       primaryColor: const Color(0xFF2697FF),
+      secondaryColor: Colors.amber,
+      tertiaryColor: const Color.fromARGB(255, 158, 158, 158),
+
       scaffoldBackgroundColor: const Color(0xFF212332),
       canvasColor: const Color(0xFF2A2D3E),
       appBarBackgroundColor: const Color.fromARGB(255, 20, 18, 24),

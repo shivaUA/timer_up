@@ -142,10 +142,10 @@ class AppTheme {
       ),
       canvasColor: colors.canvasColor,
       primaryColor: colors.primaryColor,
-      colorScheme: colorScheme.copyWith(onPrimary: Colors.amber),
+      colorScheme: colorScheme.copyWith(onPrimary: colors.secondaryColor),
       checkboxTheme: mainTheme.checkboxTheme.copyWith(
-        side: const BorderSide(color: Colors.grey, style: BorderStyle.solid, width: 1.5),
-        fillColor: const WidgetStatePropertyAll(Color.fromARGB(255, 70, 70, 70)),
+        side: BorderSide(color: colors.tertiaryColor, style: BorderStyle.solid, width: 1.5),
+        fillColor: WidgetStatePropertyAll(colors.tertiaryColor.withAlpha(70)),
       ),
       datePickerTheme: mainTheme.datePickerTheme.copyWith(
         todayForegroundColor: const WidgetStatePropertyAll(Colors.lightGreen),
