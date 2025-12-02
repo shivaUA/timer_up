@@ -52,6 +52,9 @@ dependencies:
   # Window management
   window_manager: ^0.5.1
   desktop_multi_window: ^0.3.0
+
+  # Keep screen awake, prevent sleep mode
+  wakelock_plus: ^1.4.0
   
 
 dev_dependencies:

@@ -1,27 +1,23 @@
 // DI
 import 'package:get_it/get_it.dart';
 // TimerUp
-import 'package:timer_up/core/di/di_module.dart';
-import 'package:timer_up/core/di/modules/localization_module.dart';
-import 'package:timer_up/core/di/modules/router_module.dart';
-import 'package:timer_up/core/di/modules/tray_module.dart';
+import 'package:timer_up/core/routing/router_service.dart';
+import 'package:timer_up/core/settings/shared_preferences_service.dart';
+import 'package:timer_up/features/tray/tray_service.dart';
+import 'package:timer_up/l10n/localization_service.dart';
 
 final class DI {
   static GetIt getIt = GetIt.instance;
 
-  static final List<IDIModule Function()> _modules = [
-    RouterDIModule.new,
-    LocalizationDIModule.new,
-    TrayDIModule.new,
-  ];
-
   static void init() {
-    for (var element in _modules) {
-      element().register(getIt);
-    }
-  }
+    getIt.registerSingleton<RouterService>(RouterService());
 
-  static T get<T extends Object>() => getIt.get<T>();
+    getIt.registerSingleton<LocalizationService>(LocalizationService());
+
+    getIt.registerLazySingleton<TrayService>(TrayService.new);
+
+    getIt.registerLazySingletonAsync(SharedPreferencesService.create);
+  }
 }
 
-S resolve<S extends Object>() => DI.get<S>();
+S resolve<S extends Object>() => GetIt.instance.get<S>();
