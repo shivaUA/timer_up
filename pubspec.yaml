@@ -55,6 +55,9 @@ dependencies:
 
   # Keep screen awake, prevent sleep mode
   wakelock_plus: ^1.4.0
+
+  # Background jobs
+  workmanager: ^0.9.0+3
   
 
 dev_dependencies:

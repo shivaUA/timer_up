@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final class SharedPreferencesService {
   late SharedPreferences _instance;
 
+  // TODO: decide if instance needs to be public or close it and provide proxy methods
   SharedPreferences get instance => _instance;
 
   SharedPreferencesService._();

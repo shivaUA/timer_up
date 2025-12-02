@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -14,7 +16,7 @@ Future<void> main() async {
       'outputFile': 'common_localizations.dart',
       'outputDir': 'lib/l10n/generated/common',
       'untranslatedFile': 'lib/l10n/generated/common/untranslated.json',
-      'outputClass': 'CommonLocalizations'
+      'outputClass': 'CommonLocalizations',
     },
 
     //* SYSTEM
@@ -24,7 +26,7 @@ Future<void> main() async {
       'outputFile': 'system_localizations.dart',
       'outputDir': 'lib/l10n/generated/system',
       'untranslatedFile': 'lib/l10n/generated/system/untranslated.json',
-      'outputClass': 'SystemLocalizations'
+      'outputClass': 'SystemLocalizations',
     },
   ];
 
@@ -36,14 +38,16 @@ Future<void> main() async {
     for (final loc in localizations) {
       print("Adding ${loc['outputClass']} ⚙️");
 
-      result.stdin.writeln("flutter gen-l10n" +
-          ' --arb-dir=${loc['arbDir']}' +
-          ' --template-arb-file=${loc['templateArb']}' +
-          ' --output-localization-file=${loc['outputFile']}' +
-          ' --output-dir=${loc['outputDir']}' +
-          ' --untranslated-messages-file=${loc['untranslatedFile']}' +
-          ' --no-synthetic-package' +
-          ' --output-class=${loc['outputClass']}');
+      result.stdin.writeln(
+        'flutter gen-l10n'
+        ' --arb-dir=${loc['arbDir']}'
+        ' --template-arb-file=${loc['templateArb']}'
+        ' --output-localization-file=${loc['outputFile']}'
+        ' --output-dir=${loc['outputDir']}'
+        ' --untranslated-messages-file=${loc['untranslatedFile']}'
+        ' --no-synthetic-package'
+        ' --output-class=${loc['outputClass']}',
+      );
     }
 
     result.stdin.writeln("exit(0)");
@@ -66,7 +70,7 @@ Future<void> main() async {
         '--output-dir=${loc['outputDir']}',
         '--untranslated-messages-file=${loc['untranslatedFile']}',
         '--no-synthetic-package',
-        '--output-class=${loc['outputClass']}'
+        '--output-class=${loc['outputClass']}',
       ]);
 
       if (result.exitCode != 0) {
