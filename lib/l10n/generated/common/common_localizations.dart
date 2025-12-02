@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'common_localizations_de.dart';
 import 'common_localizations_en.dart';
 
 // ignore_for_file: type=lint
@@ -90,6 +91,7 @@ abstract class CommonLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('de'),
     Locale('en')
   ];
 
@@ -223,7 +225,7 @@ class _CommonLocalizationsDelegate extends LocalizationsDelegate<CommonLocalizat
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['de', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_CommonLocalizationsDelegate old) => false;
@@ -234,6 +236,7 @@ CommonLocalizations lookupCommonLocalizations(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'de': return CommonLocalizationsDe();
     case 'en': return CommonLocalizationsEn();
   }
 

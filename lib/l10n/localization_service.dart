@@ -1,19 +1,23 @@
 // Flutter & Dart
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 // i10n
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:timer_up/features/tray/tray_service.dart';
-// TimerUp
+import 'package:timer_up/l10n/locale_change_args.dart';
 import 'package:timer_up/l10n/generated/common/common_localizations.dart';
 import 'package:timer_up/l10n/generated/system/system_localizations.dart';
-import 'package:timer_up/main.dart';
+// TimerUp
 import 'package:timer_up/core/di/di.dart';
+import 'package:timer_up/core/idisposable.dart';
+import 'package:timer_up/core/events/streamer.dart';
 import 'package:timer_up/core/models/app_locale.dart';
 import 'package:timer_up/core/routing/router_service.dart';
 
-class LocalizationService {
+class LocalizationService implements IDisposable {
+  late final Streamer<LocaleChangeArgs> _streamer;
+
   final List<AppLocale> locales = const [
     AppLocale("English", true, "en", "en-US"),
     AppLocale("Deutsch", false, "de", "de-DE"),
@@ -29,6 +33,8 @@ class LocalizationService {
     // var culture = prefs.getString("selCulture") ?? _defaultCultureCode;
 
     final locale = PlatformDispatcher.instance.locale;
+
+    _streamer = Streamer<LocaleChangeArgs>();
 
     currentLocale =
         _getLocaleByCountryCode(locale.countryCode ?? defaultLocaleCountryCode) ?? defaultLocale;
@@ -63,14 +69,25 @@ class LocalizationService {
 
     currentLocale = locale;
 
-    TimerUpApp.redraw();
-
-    resolve<TrayService>().updateTranslations();
+    _streamer.stream(LocaleChangeArgs(currentLocale, defaultLocale));
   }
 
   AppLocale? _getLocaleByCountryCode(String countryCode) {
     return locales
         .where((e) => e.countryCode!.toUpperCase() == countryCode.toUpperCase())
         .firstOrNull;
+  }
+
+  void onLocaleChange(Future<void> Function(LocaleChangeArgs args) method) {
+    _streamer.subscribe(method);
+  }
+
+  void cancelOnLocaleChange(Future<void> Function(LocaleChangeArgs args) method) {
+    _streamer.unsubscribe(method);
+  }
+
+  @override
+  Future<void> dispose() async {
+    await _streamer.dispose();
   }
 }

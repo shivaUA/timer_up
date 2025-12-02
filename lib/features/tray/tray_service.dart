@@ -1,14 +1,17 @@
 // Flutter & Dart
+import 'dart:async';
 import 'dart:io';
 // Tray
 import 'package:nativeapi/nativeapi.dart';
 // i10n
 import 'package:timer_up/l10n/generated/system/system_localizations.dart';
+import 'package:timer_up/l10n/locale_change_args.dart';
 import 'package:timer_up/l10n/localization_service.dart';
 // TimerUp
 import 'package:timer_up/core/di/di.dart';
+import 'package:timer_up/core/idisposable.dart';
 
-final class TrayService {
+final class TrayService implements IDisposable {
   bool _initialized = false;
 
   late TrayIcon? trayIcon;
@@ -20,10 +23,11 @@ final class TrayService {
     }
 
     var ls = resolve<LocalizationService>();
+    var localeSupported = SystemLocalizations.delegate.isSupported(ls.currentLocale);
 
-    var sysLoc = SystemLocalizations.delegate.isSupported(ls.currentLocale)
-        ? await SystemLocalizations.delegate.load(ls.currentLocale)
-        : await SystemLocalizations.delegate.load(ls.locales.where((x) => x.isDefault).first);
+    var sysLoc = await SystemLocalizations.delegate.load(
+      localeSupported ? ls.currentLocale : ls.defaultLocale,
+    );
 
     contextMenu = _prepareContextMenu(sysLoc);
     trayIcon = _prepareTrayIcon(sysLoc);
@@ -31,26 +35,23 @@ final class TrayService {
     trayIcon?.contextMenu = contextMenu;
 
     _initialized = true;
+
+    ls.onLocaleChange(_updateTranslations);
   }
 
-  Future<void> updateTranslations() async {
+  Future<void> _updateTranslations(LocaleChangeArgs args) async {
     if (!_initialized) {
       return;
     }
 
-    var ls = resolve<LocalizationService>();
+    var localeSupported = SystemLocalizations.delegate.isSupported(args.locale);
 
-    var sysLoc = SystemLocalizations.delegate.isSupported(ls.currentLocale)
-        ? await SystemLocalizations.delegate.load(ls.currentLocale)
-        : await SystemLocalizations.delegate.load(ls.locales.where((x) => x.isDefault).first);
+    var sysLoc = await SystemLocalizations.delegate.load(
+      localeSupported ? args.locale : args.defaultLocale,
+    );
 
     _setTrayIconTranslations(sysLoc);
     _setContextMenuTranslations(sysLoc);
-  }
-
-  void dispose() {
-    trayIcon?.dispose();
-    contextMenu.dispose();
   }
 
   TrayIcon? _prepareTrayIcon(SystemLocalizations sysLoc) {
@@ -153,4 +154,13 @@ final class TrayService {
   }
 
   void _setContextMenuTranslations(SystemLocalizations sysLoc) {}
+
+  @override
+  Future<void> dispose() async {
+    var ls = resolve<LocalizationService>();
+    ls.cancelOnLocaleChange(_updateTranslations);
+
+    trayIcon?.dispose();
+    contextMenu.dispose();
+  }
 }

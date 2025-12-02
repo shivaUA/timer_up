@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 // Bloc
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timer_up/core/di/di.dart';
+import 'package:timer_up/l10n/localization_service.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -33,6 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+
+    var ls = resolve<LocalizationService>();
+
+    ls.changeLocale(ls.locales.last);
   }
 
   @override
