@@ -33,11 +33,11 @@ Future<void> main(List<String> args) async {
   // });
 
   // TODO: implement a functionality for opening proper window specified in args
-  // probably no DI needed for some windows
+  // probably no DI needed for some windows (except localizations, settings and shared preferences)
   // or some other stuff is needed for others
 
   // Register the DI modules
-  DI.init();
+  await DI.init();
 
   runApp(TimerUpApp());
 }

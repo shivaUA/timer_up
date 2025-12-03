@@ -3,10 +3,10 @@ import 'dart:async';
 import 'dart:io';
 // Tray
 import 'package:nativeapi/nativeapi.dart';
-// i10n
+// Localization
+import 'package:timer_up/core/localization/app_locale.dart';
 import 'package:timer_up/l10n/generated/system/system_localizations.dart';
-import 'package:timer_up/l10n/locale_change_args.dart';
-import 'package:timer_up/l10n/localization_service.dart';
+import 'package:timer_up/core/localization/localization_service.dart';
 // TimerUp
 import 'package:timer_up/core/di/di.dart';
 import 'package:timer_up/core/idisposable.dart';
@@ -26,7 +26,7 @@ final class TrayService implements IDisposable {
     var localeSupported = SystemLocalizations.delegate.isSupported(ls.currentLocale);
 
     var sysLoc = await SystemLocalizations.delegate.load(
-      localeSupported ? ls.currentLocale : ls.defaultLocale,
+      localeSupported ? ls.currentLocale : LocalizationService.defaultLocale,
     );
 
     contextMenu = _prepareContextMenu(sysLoc);
@@ -39,15 +39,15 @@ final class TrayService implements IDisposable {
     ls.onLocaleChange(_updateTranslations);
   }
 
-  Future<void> _updateTranslations(LocaleChangeArgs args) async {
+  Future<void> _updateTranslations(AppLocale args) async {
     if (!_initialized) {
       return;
     }
 
-    var localeSupported = SystemLocalizations.delegate.isSupported(args.locale);
+    var localeSupported = SystemLocalizations.delegate.isSupported(args);
 
     var sysLoc = await SystemLocalizations.delegate.load(
-      localeSupported ? args.locale : args.defaultLocale,
+      localeSupported ? args : LocalizationService.defaultLocale,
     );
 
     _setTrayIconTranslations(sysLoc);

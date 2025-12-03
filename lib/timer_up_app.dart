@@ -1,11 +1,12 @@
 // Flutter & Dart
 import 'package:flutter/material.dart';
 // i10n
-import 'package:timer_up/l10n/localization_service.dart';
+import 'package:timer_up/core/localization/localization_service.dart';
 // TimerUp
 import 'package:timer_up/core/di/di.dart';
-import 'package:timer_up/core/models/app_locale.dart';
+import 'package:timer_up/core/localization/app_locale.dart';
 import 'package:timer_up/core/routing/router_service.dart';
+import 'package:timer_up/core/settings/settings_service.dart';
 import 'package:timer_up/features/tray/tray_service.dart';
 import 'package:timer_up/themes/theme_type.dart';
 import 'package:timer_up/themes/themes.dart';
@@ -23,6 +24,8 @@ class _TimerUpAppState extends State<TimerUpApp> {
   @override
   void initState() {
     super.initState();
+
+    SettingsService.setupStartupLaunch();
 
     resolve<TrayService>().init();
     resolve<LocalizationService>().onLocaleChange(_onLocaleChange);
@@ -43,9 +46,9 @@ class _TimerUpAppState extends State<TimerUpApp> {
       themeData: themeData,
       child: MaterialApp.router(
         routerConfig: rs.router,
-        supportedLocales: ls.locales,
+        supportedLocales: LocalizationService.locales,
         locale: ls.currentLocale,
-        localizationsDelegates: [...ls.localizationDelegates],
+        localizationsDelegates: [...LocalizationService.localizationDelegates],
         scaffoldMessengerKey: rs.scaffoldKey,
         theme: themeData.theme,
         title: 'TimerUp',
