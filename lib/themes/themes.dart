@@ -1,186 +1,178 @@
 import 'package:flutter/material.dart';
-import 'package:timer_up/themes/colors_data.dart';
+import 'package:timer_up/themes/colors/i_theme_colors.dart';
 import 'package:timer_up/themes/theme_type.dart';
 
 class AppTheme {
   static const String _fontFamily = "Inter";
 
   final ThemeData theme;
-  final ColorsData colors;
+  final IThemeColors colors;
 
   AppTheme(this.theme, this.colors);
 
   factory AppTheme.combine(ThemeType type) {
-    return type == ThemeType.dark ? AppTheme._dark() : AppTheme._light();
-  }
-
-  factory AppTheme._dark() {
-    var colors = ColorsData.dark();
-    var theme = _combineTheme(ThemeType.dark, colors);
+    var colors = IThemeColors.combine(type);
+    var themeData = type == ThemeType.dark ? ThemeData.dark() : ThemeData.light();
+    var theme = _combineTheme(themeData, colors);
 
     return AppTheme(theme, colors);
   }
 
-  factory AppTheme._light() => throw UnimplementedError();
-
   static AppTheme of(BuildContext context) => AppThemeContainer.of(context)!.themeData;
 
-  static ColorsData colorsOf(BuildContext context) =>
+  static IThemeColors colorsOf(BuildContext context) =>
       AppThemeContainer.of(context)!.themeData.colors;
 
   static ThemeData themeOf(BuildContext context) => AppThemeContainer.of(context)!.themeData.theme;
 
-  static ThemeData _combineTheme(ThemeType type, ColorsData colors) {
-    var mainTheme = type == ThemeType.dark ? ThemeData.dark() : ThemeData.light();
-    var supportTheme = type == ThemeType.dark ? ThemeData.light() : ThemeData.dark();
-    var colorScheme = mainTheme.colorScheme;
+  static ThemeData _combineTheme(ThemeData theme, IThemeColors colors) {
+    var colorScheme = theme.colorScheme;
 
-    return mainTheme.copyWith(
-      textTheme: mainTheme.textTheme.copyWith(
+    return theme.copyWith(
+      textTheme: theme.textTheme.copyWith(
         // BODY
-        bodySmall: mainTheme.textTheme.bodySmall?.copyWith(
+        bodySmall: theme.textTheme.bodySmall?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.normal,
           fontSize: 15,
         ),
-        bodyMedium: mainTheme.textTheme.bodyMedium?.copyWith(
+        bodyMedium: theme.textTheme.bodyMedium?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.normal,
           fontSize: 18,
         ),
-        bodyLarge: mainTheme.textTheme.bodyLarge?.copyWith(
+        bodyLarge: theme.textTheme.bodyLarge?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.normal,
           fontSize: 21,
         ),
         // DISPLAY
-        displaySmall: mainTheme.textTheme.displaySmall?.copyWith(
+        displaySmall: theme.textTheme.displaySmall?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.normal,
           fontSize: 36,
         ),
-        displayMedium: mainTheme.textTheme.displayMedium?.copyWith(
+        displayMedium: theme.textTheme.displayMedium?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.normal,
           fontSize: 45,
         ),
-        displayLarge: mainTheme.textTheme.displayLarge?.copyWith(
+        displayLarge: theme.textTheme.displayLarge?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.normal,
           fontSize: 57,
         ),
         // HEADLINE
-        headlineSmall: mainTheme.textTheme.headlineSmall?.copyWith(
+        headlineSmall: theme.textTheme.headlineSmall?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.w700,
           fontSize: 24,
         ),
-        headlineMedium: mainTheme.textTheme.headlineMedium?.copyWith(
+        headlineMedium: theme.textTheme.headlineMedium?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.w700,
           fontSize: 28,
         ),
-        headlineLarge: mainTheme.textTheme.headlineLarge?.copyWith(
+        headlineLarge: theme.textTheme.headlineLarge?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.w700,
           fontSize: 32,
         ),
         // LABEL
-        labelSmall: mainTheme.textTheme.labelSmall?.copyWith(
+        labelSmall: theme.textTheme.labelSmall?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.normal,
           fontSize: 11,
         ),
-        labelMedium: mainTheme.textTheme.labelMedium?.copyWith(
+        labelMedium: theme.textTheme.labelMedium?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.normal,
           fontSize: 12,
         ),
-        labelLarge: mainTheme.textTheme.labelLarge?.copyWith(
+        labelLarge: theme.textTheme.labelLarge?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.normal,
           fontSize: 14,
         ),
         // TITLE
-        titleSmall: mainTheme.textTheme.titleSmall?.copyWith(
+        titleSmall: theme.textTheme.titleSmall?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.w500,
           fontSize: 14,
         ),
-        titleMedium: mainTheme.textTheme.titleMedium?.copyWith(
+        titleMedium: theme.textTheme.titleMedium?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.w500,
           fontSize: 16,
         ),
-        titleLarge: mainTheme.textTheme.titleLarge?.copyWith(
+        titleLarge: theme.textTheme.titleLarge?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
           fontWeight: FontWeight.w500,
           fontSize: 22,
         ),
       ),
-      scaffoldBackgroundColor: colors.scaffoldBackgroundColor,
-      chipTheme: supportTheme.chipTheme.copyWith(
-        labelStyle: supportTheme.chipTheme.labelStyle?.copyWith(
+      scaffoldBackgroundColor: colors.primaryBackgroundColor,
+      chipTheme: theme.chipTheme.copyWith(
+        labelStyle: theme.chipTheme.labelStyle?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
         ),
       ),
-      canvasColor: colors.canvasColor,
+      canvasColor: colors.secondaryBackgroundColor,
       primaryColor: colors.primaryColor,
       colorScheme: colorScheme.copyWith(onPrimary: colors.secondaryColor),
-      checkboxTheme: mainTheme.checkboxTheme.copyWith(
+      checkboxTheme: theme.checkboxTheme.copyWith(
         side: BorderSide(color: colors.tertiaryColor, style: BorderStyle.solid, width: 1.5),
         fillColor: WidgetStatePropertyAll(colors.tertiaryColor.withAlpha(70)),
       ),
-      datePickerTheme: mainTheme.datePickerTheme.copyWith(
+      datePickerTheme: theme.datePickerTheme.copyWith(
         todayForegroundColor: const WidgetStatePropertyAll(Colors.lightGreen),
         todayBackgroundColor: const WidgetStatePropertyAll(Colors.transparent),
-        yearStyle: mainTheme.datePickerTheme.yearStyle?.copyWith(
+        yearStyle: theme.datePickerTheme.yearStyle?.copyWith(
           fontFamily: _fontFamily,
           color: colors.infoBackgroundColor,
         ),
-        dayStyle: mainTheme.datePickerTheme.dayStyle?.copyWith(
+        dayStyle: theme.datePickerTheme.dayStyle?.copyWith(
           fontFamily: _fontFamily,
           color: colors.infoBackgroundColor,
         ),
-        weekdayStyle: mainTheme.datePickerTheme.weekdayStyle?.copyWith(
+        weekdayStyle: theme.datePickerTheme.weekdayStyle?.copyWith(
           fontFamily: _fontFamily,
           color: colors.infoBackgroundColor,
         ),
-        headerHelpStyle: mainTheme.datePickerTheme.headerHelpStyle?.copyWith(
+        headerHelpStyle: theme.datePickerTheme.headerHelpStyle?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
         ),
-        headerHeadlineStyle: mainTheme.datePickerTheme.headerHeadlineStyle?.copyWith(
+        headerHeadlineStyle: theme.datePickerTheme.headerHeadlineStyle?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
         ),
-        rangePickerHeaderHelpStyle: mainTheme.datePickerTheme.rangePickerHeaderHelpStyle?.copyWith(
+        rangePickerHeaderHelpStyle: theme.datePickerTheme.rangePickerHeaderHelpStyle?.copyWith(
           fontFamily: _fontFamily,
-          color: colors.defaultTextColor,
+          color: colors.textPrimaryColor,
         ),
-        rangePickerHeaderHeadlineStyle: mainTheme.datePickerTheme.rangePickerHeaderHeadlineStyle
-            ?.copyWith(fontFamily: _fontFamily, color: colors.defaultTextColor),
+        rangePickerHeaderHeadlineStyle: theme.datePickerTheme.rangePickerHeaderHeadlineStyle
+            ?.copyWith(fontFamily: _fontFamily, color: colors.textPrimaryColor),
       ),
-      inputDecorationTheme: mainTheme.inputDecorationTheme.copyWith(),
+      inputDecorationTheme: theme.inputDecorationTheme.copyWith(),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: <TargetPlatform, PageTransitionsBuilder>{
-          //TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           TargetPlatform.linux: OpenUpwardsPageTransitionsBuilder(),
           TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
           TargetPlatform.windows: PredictiveBackPageTransitionsBuilder(),

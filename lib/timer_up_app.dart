@@ -6,9 +6,9 @@ import 'package:timer_up/core/localization/localization_service.dart';
 import 'package:timer_up/core/di/di.dart';
 import 'package:timer_up/core/localization/app_locale.dart';
 import 'package:timer_up/core/routing/router_service.dart';
+import 'package:timer_up/core/settings/settings_change_args.dart';
 import 'package:timer_up/core/settings/settings_service.dart';
 import 'package:timer_up/features/tray/tray_service.dart';
-import 'package:timer_up/themes/theme_type.dart';
 import 'package:timer_up/themes/themes.dart';
 
 class TimerUpApp extends StatefulWidget {
@@ -26,21 +26,29 @@ class _TimerUpAppState extends State<TimerUpApp> {
     super.initState();
 
     SettingsService.setupStartupLaunch();
+    SettingsService.onSettingsChange(_onSettingsChange);
 
     resolve<TrayService>().init();
     resolve<LocalizationService>().onLocaleChange(_onLocaleChange);
   }
 
-  Future<void> _onLocaleChange(_) async {
+  Future<void> _onLocaleChange(AppLocale _) async {
     setState(() {});
+  }
+
+  Future<void> _onSettingsChange(SettingsChangeArgs args) async {
+    if (args.themeChanged) {
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final rs = resolve<RouterService>();
     final ls = resolve<LocalizationService>();
+    final setServ = resolve<SettingsService>();
 
-    var themeData = AppTheme.combine(ThemeType.dark);
+    var themeData = AppTheme.combine(setServ.getTheme());
 
     return AppThemeContainer(
       themeData: themeData,
@@ -61,6 +69,7 @@ class _TimerUpAppState extends State<TimerUpApp> {
   void dispose() {
     resolve<TrayService>().dispose();
     resolve<LocalizationService>().cancelOnLocaleChange(_onLocaleChange);
+    SettingsService.cancelOnSettingsChange(_onSettingsChange);
 
     super.dispose();
   }
