@@ -1,0 +1,29 @@
+{
+  "@@locale": "en",
+
+  "tray_openHideApp": "Open/Hide app",
+  "tray_settings": "Settings",
+  "tray_commands": "Commands",
+  "tray_quit": "Quit",
+  "tray_about": "About",
+  "tray_quit_confirmation_activeTimers": "There are active timers running. They will be completely stopped.\r\nAre you sure you want to close TimerUp?",
+
+  "settings_language": "Language",
+  "settings_language_system": "Use system language",
+  "settings_theme": "Theme",
+  "settings_theme_light": "Light",
+  "settings_theme_dark": "Dark",
+  "settings_timeFormat": "Time format",
+  "settings_timeFormat_24h": "24-hour (00:00)",
+  "settings_timeFormat_12h": "12-hour (12 AM)",
+  "settings_autoLaunch": "Automatically start on login",
+  "settings_showNotifications": "Show notifications",
+  "settings_showNotifications_hint": "",
+
+  "commands_shutdown": "Shut down",
+  "commands_sleep": "Sleep",
+  "commands_restart": "Restart",
+  "commands_lock": "Lock",
+  "commands_logOut": "Log out",
+  "commands_hybernate": "Hybernate"
+}

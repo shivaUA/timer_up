@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:timer_up/core/localization/app_locale.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:timer_up/l10n/generated/common/common_localizations.dart';
-import 'package:timer_up/l10n/generated/system/system_localizations.dart';
+import 'package:timer_up/l10n/generated/core/core_localizations.dart';
 // TimerUp
 import 'package:timer_up/core/di/di.dart';
 import 'package:timer_up/core/idisposable.dart';
@@ -19,7 +19,7 @@ class LocalizationService implements IDisposable {
 
   static final List<AppLocale> locales = const [
     AppLocale("English", true, "en", "en-US"),
-    AppLocale("Deutsch", false, "de", "de-DE"),
+    AppLocale("Українська", false, "uk", "uk-UA"),
   ];
 
   static final String _defaultLocaleCountryCode = "en-US";
@@ -42,7 +42,7 @@ class LocalizationService implements IDisposable {
       GlobalCupertinoLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
       CommonLocalizations.delegate,
-      SystemLocalizations.delegate,
+      CoreLocalizations.delegate,
     ];
   }
 
@@ -56,9 +56,9 @@ class LocalizationService implements IDisposable {
     return CommonLocalizations.of(navigatorKey.currentContext!)!;
   }
 
-  SystemLocalizations get systemLocalizations {
+  CoreLocalizations get coreLocalizations {
     var navigatorKey = resolve<RouterService>().navigatorKey;
-    return SystemLocalizations.of(navigatorKey.currentContext!)!;
+    return CoreLocalizations.of(navigatorKey.currentContext!)!;
   }
 
   void changeLocale(AppLocale? locale) {

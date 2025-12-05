@@ -1,0 +1,27 @@
+{
+  "uk": [
+    "tray_openHideApp",
+    "tray_settings",
+    "tray_commands",
+    "tray_quit",
+    "tray_about",
+    "tray_quit_confirmation_activeTimers",
+    "settings_language",
+    "settings_language_system",
+    "settings_theme",
+    "settings_theme_light",
+    "settings_theme_dark",
+    "settings_timeFormat",
+    "settings_timeFormat_24h",
+    "settings_timeFormat_12h",
+    "settings_autoLaunch",
+    "settings_showNotifications",
+    "settings_showNotifications_hint",
+    "commands_shutdown",
+    "commands_sleep",
+    "commands_restart",
+    "commands_lock",
+    "commands_logOut",
+    "commands_hybernate"
+  ]
+}

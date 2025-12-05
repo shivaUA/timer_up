@@ -19,14 +19,14 @@ Future<void> main() async {
       'outputClass': 'CommonLocalizations',
     },
 
-    //* SYSTEM
+    //* CORE
     {
-      'arbDir': 'lib/l10n/translations/system',
-      'templateArb': 'system_en.arb',
-      'outputFile': 'system_localizations.dart',
-      'outputDir': 'lib/l10n/generated/system',
-      'untranslatedFile': 'lib/l10n/generated/system/untranslated.json',
-      'outputClass': 'SystemLocalizations',
+      'arbDir': 'lib/l10n/translations/core',
+      'templateArb': 'core_en.arb',
+      'outputFile': 'core_localizations.dart',
+      'outputDir': 'lib/l10n/generated/core',
+      'untranslatedFile': 'lib/l10n/generated/core/untranslated.json',
+      'outputClass': 'CoreLocalizations',
     },
   ];
 

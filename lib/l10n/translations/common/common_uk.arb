@@ -1,0 +1,23 @@
+{
+  "@@locale": "uk",
+  "common_language": "Молва",
+  "common_create": "Створити",
+  "common_refresh": "Оновити",
+  "common_edit": "Редагувати",
+  "common_delete": "Видалити",
+  "common_ok": "OK",
+  "common_close": "Закрити",
+  "common_cancel": "Відмінитти",
+  "common_save": "Зберегти",
+  "common_saveAndClose": "Зберегти і закрити",
+  "common_active": "Активний",
+  "common_name": "Назва",
+  "common_sortOrder": "Порядок сортування",
+  "common_description": "Опис",
+  "common_select": "Вибрати",
+  "common_yes": "Так",
+  "common_no": "Ні",
+  "common_title": "Заголовок",
+  "common_text": "Текст",
+  "common_date": "Дата"
+}

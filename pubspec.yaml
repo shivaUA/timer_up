@@ -47,7 +47,7 @@ dependencies:
   package_info_plus: 9.0.0
 
   # Tray support and other
-  nativeapi: ^0.1.0
+  system_tray: ^2.0.3
 
   # Window management
   window_manager: ^0.5.1
