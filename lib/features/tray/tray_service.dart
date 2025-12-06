@@ -38,8 +38,6 @@ final class TrayService implements IDisposable {
       return;
     }
 
-    await windowManager.ensureInitialized();
-
     var settings = await resolve<SettingsService>().loadSettings();
 
     var ls = resolve<LocalizationService>();

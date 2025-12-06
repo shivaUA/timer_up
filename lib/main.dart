@@ -1,13 +1,39 @@
 // Flutter & Dart
 import 'package:flutter/material.dart';
+// Window
+import 'package:window_manager/window_manager.dart';
+import 'package:flutter_window_close/flutter_window_close.dart';
 // TimerUp
 import 'package:timer_up/core/di/di.dart';
 import 'package:timer_up/timer_up_app.dart';
+import 'package:timer_up/core/di/di_main.dart';
+import 'package:timer_up/core/di/di_secondary.dart';
+import 'package:timer_up/features/tray/tray_service.dart';
+import 'package:timer_up/core/settings/settings_service.dart';
 
 Future<void> main(List<String> args) async {
-  //WidgetsFlutterBinding.ensureInitialized();
+  // Ensure all components are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
 
-  //await windowManager.ensureInitialized();
+  // Register services based on window type needed
+  final di = args.isNotEmpty ? DISecondary() : DIMain();
+  await di.register();
+
+  // If main window
+  if (args.isEmpty) {
+    // Initialize autostart functioanlity
+    await SettingsService.setupStartupLaunch();
+
+    // Initialize tray icon and context menu
+    await resolve<TrayService>().init();
+
+    // Hide window if user closes it manually, we don't need to close it like this
+    FlutterWindowClose.setWindowShouldCloseHandler(() async {
+      await windowManager.hide();
+      return false;
+    });
+  }
 
   //if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
   //var packageInfo = await PackageInfo.fromPlatform();
@@ -31,13 +57,6 @@ Future<void> main(List<String> args) async {
   //   await windowManager.show();
   //   await windowManager.focus();
   // });
-
-  // TODO: implement a functionality for opening proper window specified in args
-  // probably no DI needed for some windows (except localizations, settings and shared preferences)
-  // or some other stuff is needed for others
-
-  // Register the DI modules
-  await DI.init();
 
   runApp(TimerUpApp());
 }

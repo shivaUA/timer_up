@@ -9,7 +9,7 @@ import 'package:timer_up/core/routing/router_service.dart';
 import 'package:timer_up/core/settings/settings_change_args.dart';
 import 'package:timer_up/core/settings/settings_service.dart';
 import 'package:timer_up/features/tray/tray_service.dart';
-import 'package:timer_up/themes/themes.dart';
+import 'package:timer_up/themes/app_theme.dart';
 
 class TimerUpApp extends StatefulWidget {
   const TimerUpApp({super.key});
@@ -25,10 +25,7 @@ class _TimerUpAppState extends State<TimerUpApp> {
   void initState() {
     super.initState();
 
-    SettingsService.setupStartupLaunch();
     SettingsService.onSettingsChange(_onSettingsChange);
-
-    resolve<TrayService>().init();
     resolve<LocalizationService>().onLocaleChange(_onLocaleChange);
   }
 
@@ -48,7 +45,7 @@ class _TimerUpAppState extends State<TimerUpApp> {
     final ls = resolve<LocalizationService>();
     final setServ = resolve<SettingsService>();
 
-    var themeData = AppTheme.combine(setServ.getTheme());
+    var themeData = AppTheme.prepare(setServ.getTheme());
 
     return AppThemeContainer(
       themeData: themeData,

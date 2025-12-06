@@ -36,7 +36,7 @@ abstract interface class IThemeColors {
   Color get successBackgroundColor;
   Color get successBorderColor;
 
-  static IThemeColors combine(ThemeType type) {
+  static IThemeColors prepare(ThemeType type) {
     switch (type) {
       case ThemeType.light:
         return ThemeColorsLight();

@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
-// i10n
+// Localization
 import 'package:timer_up/core/localization/app_locale.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:timer_up/l10n/generated/common/common_localizations.dart';
@@ -11,7 +11,6 @@ import 'package:timer_up/l10n/generated/core/core_localizations.dart';
 import 'package:timer_up/core/di/di.dart';
 import 'package:timer_up/core/idisposable.dart';
 import 'package:timer_up/core/events/streamer.dart';
-import 'package:timer_up/core/routing/router_service.dart';
 import 'package:timer_up/core/settings/settings_service.dart';
 
 class LocalizationService implements IDisposable {
@@ -50,16 +49,6 @@ class LocalizationService implements IDisposable {
 
   static AppLocale? get _systemLocale =>
       _getLocaleByCountryCode(PlatformDispatcher.instance.locale.countryCode ?? "---");
-
-  CommonLocalizations get commonLocalizations {
-    var navigatorKey = resolve<RouterService>().navigatorKey;
-    return CommonLocalizations.of(navigatorKey.currentContext!)!;
-  }
-
-  CoreLocalizations get coreLocalizations {
-    var navigatorKey = resolve<RouterService>().navigatorKey;
-    return CoreLocalizations.of(navigatorKey.currentContext!)!;
-  }
 
   void changeLocale(AppLocale? locale) {
     var realLocale = locale ?? _systemLocale ?? defaultLocale;

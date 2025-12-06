@@ -10,8 +10,8 @@ class AppTheme {
 
   AppTheme(this.theme, this.colors);
 
-  factory AppTheme.combine(ThemeType type) {
-    var colors = IThemeColors.combine(type);
+  factory AppTheme.prepare(ThemeType type) {
+    var colors = IThemeColors.prepare(type);
     var themeData = type == ThemeType.dark ? ThemeData.dark() : ThemeData.light();
     var theme = _combineTheme(themeData, colors);
 
