@@ -76,4 +76,19 @@ class CoreLocalizationsUk extends CoreLocalizations {
 
   @override
   String get commands_hybernate => 'Hybernate';
+
+  @override
+  String get routes_powerTimers => 'Таймери живлення';
+
+  @override
+  String get routes_stopwatch => 'Секундомір';
+
+  @override
+  String get routes_reminders => 'Нагадування';
+
+  @override
+  String get routes_interruptionTimers => 'Таймери перерви';
+
+  @override
+  String get routes_settings => 'Налаштування';
 }

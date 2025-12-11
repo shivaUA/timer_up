@@ -25,5 +25,11 @@
   "commands_restart": "Restart",
   "commands_lock": "Lock",
   "commands_logOut": "Log out",
-  "commands_hybernate": "Hybernate"
+  "commands_hybernate": "Hybernate",
+
+  "routes_powerTimers": "Power timers",
+  "routes_stopwatch": "Stopwatch",
+  "routes_reminders": "Reminders",
+  "routes_interruptionTimers": "Interruption timers",
+  "routes_settings": "Settings"
 }

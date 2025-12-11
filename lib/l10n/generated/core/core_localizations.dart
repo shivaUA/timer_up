@@ -232,6 +232,36 @@ abstract class CoreLocalizations {
   /// In en, this message translates to:
   /// **'Hybernate'**
   String get commands_hybernate;
+
+  /// No description provided for @routes_powerTimers.
+  ///
+  /// In en, this message translates to:
+  /// **'Power timers'**
+  String get routes_powerTimers;
+
+  /// No description provided for @routes_stopwatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopwatch'**
+  String get routes_stopwatch;
+
+  /// No description provided for @routes_reminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get routes_reminders;
+
+  /// No description provided for @routes_interruptionTimers.
+  ///
+  /// In en, this message translates to:
+  /// **'Interruption timers'**
+  String get routes_interruptionTimers;
+
+  /// No description provided for @routes_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get routes_settings;
 }
 
 class _CoreLocalizationsDelegate extends LocalizationsDelegate<CoreLocalizations> {

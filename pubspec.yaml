@@ -35,7 +35,6 @@ dependencies:
 
   # Basic packages
   material_symbols_icons: ^4.2874.0
-  flutter_localization: ^0.3.3
   go_router: ^17.0.0
   flutter_bloc: ^9.1.1
   shared_preferences: ^2.5.3
@@ -65,8 +64,8 @@ dependencies:
   
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  # flutter_test:
+  #   sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -74,6 +73,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+
+  # Localizations
+  l10n_mapper_generator: ^2.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

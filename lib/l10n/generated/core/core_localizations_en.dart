@@ -76,4 +76,19 @@ class CoreLocalizationsEn extends CoreLocalizations {
 
   @override
   String get commands_hybernate => 'Hybernate';
+
+  @override
+  String get routes_powerTimers => 'Power timers';
+
+  @override
+  String get routes_stopwatch => 'Stopwatch';
+
+  @override
+  String get routes_reminders => 'Reminders';
+
+  @override
+  String get routes_interruptionTimers => 'Interruption timers';
+
+  @override
+  String get routes_settings => 'Settings';
 }

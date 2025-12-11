@@ -168,6 +168,7 @@ final class TrayService implements IDisposable {
       label: _translateMenuItem(_TrayMenuItemType.quit, coreLoc),
       onClicked: (_) {
         // TODO: check if any timer is running and confirm with user
+        // TODO: Implement functionality to properly close the whole app, maybe with all additional the opened windows as well
         exit(0);
       },
     );

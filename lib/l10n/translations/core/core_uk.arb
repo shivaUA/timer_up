@@ -1,3 +1,9 @@
 {
-  "@@locale" : "uk"
+  "@@locale" : "uk",
+
+  "routes_powerTimers": "Таймери живлення",
+  "routes_stopwatch": "Секундомір",
+  "routes_reminders": "Нагадування",
+  "routes_interruptionTimers": "Таймери перерви",
+  "routes_settings": "Налаштування"
 }

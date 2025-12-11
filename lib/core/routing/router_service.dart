@@ -4,43 +4,58 @@ import 'package:flutter/material.dart';
 // Router
 import 'package:go_router/go_router.dart';
 // TimerUp
-import 'package:timer_up/core/routing/routes/home_routes.dart';
-import 'package:timer_up/core/routing/i_route.dart';
+import 'package:timer_up/core/routing/routes/main_routes.dart';
+import 'package:timer_up/core/routing/routes/i_route.dart';
+import 'package:timer_up/features/templates/main_template/presentation/template.dart';
 
 final class RouterService {
-  final navigatorKey = GlobalKey<NavigatorState>();
+  final _navigatorKey = GlobalKey<NavigatorState>();
   final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+  final _mainTemplateKey = GlobalKey<NavigatorState>(debugLabel: 'main_template');
   late final GoRouter router;
 
   RouterService() {
     router = GoRouter(
-      initialLocation: '/',
-      navigatorKey: navigatorKey,
-      routes: [...HomeRoutes.routes()],
+      initialLocation: MainRoutes.powerTimers.path,
+      navigatorKey: _navigatorKey,
+      routes: [
+        ShellRoute(
+          navigatorKey: _mainTemplateKey,
+          pageBuilder: (context, state, child) {
+            var name = state.topRoute?.name ?? state.fullPath?.replaceAll("/", "");
+            return MaterialPage(
+              child: SelectionArea(
+                child: MainTemplate(childWidget: child, screenName: name),
+              ),
+              name: name,
+            );
+          },
+          routes: [...MainRoutes.routes()],
+        ),
+      ],
       debugLogDiagnostics: kDebugMode,
     );
   }
 
   Future<void> goTo({required IRoute route, Map<String, dynamic>? parameters}) async {
-    navigatorKey.currentContext!.goNamed(route.name, extra: parameters);
+    _navigatorKey.currentContext!.goNamed(route.name, extra: parameters);
   }
 
   Future<T?> push<T extends Object?>({
     required IRoute route,
     Map<String, dynamic>? parameters,
   }) async {
-    return await navigatorKey.currentContext!.push(route.path, extra: parameters);
+    return await _navigatorKey.currentContext!.push(route.path, extra: parameters);
   }
 
-  String get location =>
-      navigatorKey.currentContext != null
-          ? GoRouter.of(navigatorKey.currentContext!).state.path ?? "/"
-          : "/";
+  String get location => _navigatorKey.currentContext != null
+      ? GoRouter.of(_navigatorKey.currentContext!).state.path ?? "/"
+      : "/";
 
   void pop<T extends Object>([T? result]) {
-    var context = navigatorKey.currentState!.context;
+    var context = _navigatorKey.currentState!.context;
     if (context.canPop()) {
-      navigatorKey.currentState!.context.pop(result);
+      _navigatorKey.currentState!.context.pop(result);
     }
   }
 }
